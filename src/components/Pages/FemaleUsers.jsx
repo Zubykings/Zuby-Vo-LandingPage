@@ -4,7 +4,7 @@ import { femaleUsers } from "../../assets/users";
 
 const FemaleUsers = () => {
   return (
-    <div className="flex flex-row flex-wrap gap-x-20 gap-y-5 items-center justify-center w-full h-full">
+    <div className="flex flex-row flex-wrap gap-x-10 gap-y-5 items-center justify-center w-full h-full">
       {femaleUsers.map((female) => (
         <SubCards
           key={female.id}

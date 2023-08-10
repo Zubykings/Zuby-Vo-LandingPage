@@ -56,7 +56,7 @@ function App() {
           </ul>
         </nav>
       </div>
-      <div className="  w-[80%] m-auto top-0 h-full absolute right-0">
+      <div className="  w-[80%] m-auto top-2 h-full absolute right-0">
         {currentPage === "home" && <HomeView />}
         {currentPage === "male" && <Male />}
         {currentPage === "female" && <FemaleUsers />}
