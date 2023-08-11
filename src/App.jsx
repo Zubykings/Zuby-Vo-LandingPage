@@ -16,17 +16,17 @@ function App() {
     {
       label: "All",
       icon: <FaUsers />,
-      onClick: () => handlePageChange("home"),
+      onMouseOver: () => handlePageChange("home"),
     },
     {
       label: "Male Folks",
       icon: <FaUserTie />,
-      onClick: () => handlePageChange("male"),
+      onMouseOver: () => handlePageChange("male"),
     },
     {
       label: "Female Folks",
       icon: <SlUserFemale />,
-      onClick: () => handlePageChange("female"),
+      onMouseOver: () => handlePageChange("female"),
     },
   ];
 
@@ -44,7 +44,7 @@ function App() {
             {navLinks.map((link, index) => (
               <a
                 href="#!"
-                onClick={link.onClick}
+                onMouseOver={link.onMouseOver}
                 key={index}
                 className="hover:text-red-900 transition-colors flex items-center gap-5"
               >
