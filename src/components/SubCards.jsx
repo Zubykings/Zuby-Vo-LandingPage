@@ -4,7 +4,7 @@ import Button from "./Button";
 const SubCards = (props) => {
   const { img, names, email, state } = props;
   return (
-    <div className="flex flex-col w-[90%] md:w-[70%] lg:w-[19rem] h-[25rem] items-center gap-5 shadow-md border-2 py-4">
+    <div className="flex flex-col w-[90%] md:w-[70%] lg:w-[19rem] h-[25rem] items-center gap-5 shadow-md border-2 py-4 hover:scale-105 transition">
       <img
         src={img}
         alt=""
