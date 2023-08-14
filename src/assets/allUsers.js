@@ -8,6 +8,7 @@ import Joy from "./images/Joy.jpg";
 export const allUsers = [
   {
     img: Ammy,
+    gender:"female",
     names: "Ammy Vann",
     email: "ammyVnn@gmail.com",
     state: "Ohio",
@@ -15,6 +16,7 @@ export const allUsers = [
   },
   {
     img: Jane,
+    gender:"female",
     names: "Jane Lane",
     email: "lane.jane@yahoomail.com",
     state: "Arizona",
@@ -22,6 +24,7 @@ export const allUsers = [
   },
   {
     img: Elizue,
+    gender:"male",
     names: "Elizue Dias",
     email: "elezuedias@gmail.com",
     state: "New York",
@@ -29,6 +32,7 @@ export const allUsers = [
   },
   {
     img: Jack,
+    gender:"male",
     names: "Jack Joe",
     email: "Jackjoejj@yahoomail.com",
     state: "Utah",
@@ -36,6 +40,7 @@ export const allUsers = [
   },
   {
     img: Elvis,
+    gender:"male",
     names: "Elvis Frank",
     email: "elvisFrank@gmail.com",
     state: "Oklahoma",
@@ -43,6 +48,7 @@ export const allUsers = [
   },
   {
     img: Joy,
+    gender:"female",
     names: "Joy Rose",
     email: "joyrosyy@gmail.com",
     state: "Texas",
