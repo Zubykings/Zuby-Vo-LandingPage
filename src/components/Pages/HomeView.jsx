@@ -61,7 +61,7 @@ const HomeView = () => {
 
   return (
     <div className="flex flex-col md:flex-row items-center justify-center m-auto h-full ">
-      <div className="md:w-[20%] h-full bg-[#ad9f9e] fixed top-0 left-0 px-5 ">
+      <div className="md:w-[20%] h-full bg-[#ad9f9e] fixed top-0 left-0 px-5 z-50 ">
         <div className="text-red-900 border-b-2 text-center border-gray-500/30 w-[90%] m-auto">
           <h2 className="vo mt-4  text-4xl  md:text-7xl">VO</h2>
         </div>
@@ -83,13 +83,14 @@ const HomeView = () => {
           </ul>
         </nav>
       </div>
-      <div className="flex flex-col items-center w-full h-full gap-10">
-        <div className="flex flex-row flex-nowrap gap-3 items-center ">
-          <i onClick={previous}>
-            <GrPrevious className="text-2xl cursor-pointer" />
-          </i>
 
-          <div className="flex flex-col items-center border p-5 rounded-3xl shadow-2xl">
+      <div className="flex flex-col items-center w-full h-full relative">
+        <div className="flex md:flex-row flex-nowrap gap-3 items-center justify-center fixed top-0 z-20 left-[10%] bg-white w-full left-0 right-0 md:pb-5 top-card">
+          <button onClick={previous} className="icon prev px-2">
+            <GrPrevious className="md:text-2xl text-4xl cursor-pointer" />
+          </button>
+
+          <div className="flex flex-col items-center border p-5 rounded-3xl shadow-2xl card">
             <img
               src={profile.img}
               alt=""
@@ -100,11 +101,12 @@ const HomeView = () => {
             <p>{profile.state}</p>
           </div>
 
-          <i onClick={next} className="">
-            <GrNext className="text-2xl text-red-900 cursor-pointer" />
-          </i>
+          <button onClick={next} className="icon next px-2 ">
+            <GrNext className="md:text-2xl text-4xl cursor-pointer" />
+          </button>
         </div>
-        <div className="flex md:flex-row flex-wrap gap-x-20 gap-y-5 items-center justify-center w-full h-full">
+
+        <div className="flex md:flex-row flex-wrap gap-x-20 gap-y-5 items-center justify-center w-full h-full absolute md:top-[400px] top-[450px]">
           {displayedUser.map((user) => (
             <Cards
               key={user.id}
