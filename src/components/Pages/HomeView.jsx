@@ -3,11 +3,25 @@ import { allUsers } from "../../assets/allUsers";
 import Cards from "../Cards";
 import { FaUserTie, FaUsers } from "react-icons/fa";
 import { SlUserFemale } from "react-icons/sl";
+import { GrNext, GrPrevious } from "react-icons/gr";
+import Button from "../Button";
 // import { allUsers } from "../assets/allUsers";
 
 const HomeView = () => {
   const [currentPage, setCurrentPage] = useState("home");
   const [displayedUser, setDisplayedUser] = useState(allUsers);
+  const [profileIndex, setProfileIndex] = useState(0);
+
+  const next = () => {
+    if (profileIndex < displayedUser.length - 1) {
+      setProfileIndex(profileIndex + 1);
+    }
+  };
+  const previous = () => {
+    if (profileIndex > 0) {
+      setProfileIndex(profileIndex - 1);
+    }
+  };
 
   const maleUsers = allUsers.filter((user) => user.gender == "male");
   const femaleUsers = allUsers.filter((user) => user.gender == "female");
@@ -22,6 +36,7 @@ const HomeView = () => {
     } else if (page === "female") {
       setDisplayedUser(femaleUsers);
     }
+    setProfileIndex(0);
   };
 
   const navLinks = [
@@ -41,6 +56,8 @@ const HomeView = () => {
       onMouseOver: () => handlePageChange("female"),
     },
   ];
+
+  const profile = displayedUser[profileIndex];
 
   return (
     <div className="flex flex-col md:flex-row items-center justify-center m-auto h-full ">
@@ -66,16 +83,38 @@ const HomeView = () => {
           </ul>
         </nav>
       </div>
-      <div className="flex md:flex-row flex-wrap gap-x-20 gap-y-5 items-center justify-center w-full h-full">
-        {displayedUser.map((user) => (
-          <Cards
-            key={user.id}
-            img={user.img}
-            names={user.names}
-            email={user.email}
-            state={user.state}
-          />
-        ))}
+      <div className="flex flex-col items-center w-full h-full gap-10">
+        <div className="flex flex-row flex-nowrap gap-3 items-center ">
+          <i onClick={previous}>
+            <GrPrevious className="text-2xl cursor-pointer" />
+          </i>
+
+          <div className="flex flex-col items-center border p-5 rounded-3xl shadow-2xl">
+            <img
+              src={profile.img}
+              alt=""
+              className="w-[250px] h-[250px] object-cover rounded-3xl"
+            />
+            <h1 className="font-bold text-xl">{profile.names}</h1>
+            <p className="font-semibold text-red-900">{profile.email}</p>
+            <p>{profile.state}</p>
+          </div>
+
+          <i onClick={next} className="">
+            <GrNext className="text-2xl text-red-900 cursor-pointer" />
+          </i>
+        </div>
+        <div className="flex md:flex-row flex-wrap gap-x-20 gap-y-5 items-center justify-center w-full h-full">
+          {displayedUser.map((user) => (
+            <Cards
+              key={user.id}
+              img={user.img}
+              names={user.names}
+              email={user.email}
+              state={user.state}
+            />
+          ))}
+        </div>
       </div>
     </div>
   );
