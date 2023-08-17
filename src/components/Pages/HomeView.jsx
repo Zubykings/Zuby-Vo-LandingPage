@@ -58,6 +58,7 @@ const HomeView = () => {
   ];
 
   const profile = displayedUser[profileIndex];
+  console.log(profileIndex);
 
   return (
     <div className="flex flex-col md:flex-row items-center justify-center m-auto h-full ">
@@ -85,12 +86,16 @@ const HomeView = () => {
       </div>
 
       <div className="flex flex-col items-center w-full h-full relative">
-        <div className="flex md:flex-row flex-nowrap gap-3 items-center justify-center fixed top-0 z-20 left-[10%] bg-white w-full left-0 right-0 md:pb-5 top-card">
+        <div className="flex md:flex-row flex-nowrap gap-3 items-center justify-center fixed md:sticky lg:fixed  top-0 z-20 left-[10%] bg-white w-full left-0 right-0 md:pb-5 top-card">
           <button onClick={previous} className="icon prev px-2">
             <GrPrevious className="md:text-2xl text-4xl cursor-pointer" />
           </button>
 
           <div className="flex flex-col items-center border p-5 rounded-3xl shadow-2xl card">
+            <p>
+              {`Student ID: 
+              00${profileIndex + 1} of 00${displayedUser.length}`}
+            </p>
             <img
               src={profile.img}
               alt=""
