@@ -92,9 +92,11 @@ const HomeView = () => {
           </button>
 
           <div className="flex flex-col items-center border p-5 rounded-3xl shadow-2xl card">
-            <p>
-              {`Student ID: 
-              00${profileIndex + 1} of 00${displayedUser.length}`}
+            <p className="font-bold">
+              Student ID:
+              <span className="font-normal">
+                {` 00${profileIndex + 1} of 00${displayedUser.length}`}
+              </span>
             </p>
             <img
               src={profile.img}
