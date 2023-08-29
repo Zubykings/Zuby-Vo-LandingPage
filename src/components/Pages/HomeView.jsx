@@ -2,15 +2,17 @@ import React, { useState } from "react";
 import { allUsers } from "../../assets/allUsers";
 import Cards from "../Cards";
 import { FaUserTie, FaUsers } from "react-icons/fa";
-import { SlUserFemale } from "react-icons/sl";
+import { SlLogin, SlUserFemale } from "react-icons/sl";
 import { GrNext, GrPrevious } from "react-icons/gr";
-import Button from "../Button";
+import SignUp from "../SignUp";
+// import Button from "../Button";
 // import { allUsers } from "../assets/allUsers";
 
 const HomeView = () => {
   const [currentPage, setCurrentPage] = useState("home");
   const [displayedUser, setDisplayedUser] = useState(allUsers);
   const [profileIndex, setProfileIndex] = useState(0);
+  const [showSignUp, setShowSignUp] = useState(false);
 
   const next = () => {
     if (profileIndex < displayedUser.length - 1) {
@@ -25,9 +27,11 @@ const HomeView = () => {
 
   const maleUsers = allUsers.filter((user) => user.gender == "male");
   const femaleUsers = allUsers.filter((user) => user.gender == "female");
+  console.log("Current Page:", currentPage);
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
+    // setShowSignUp()
 
     if (page === "home") {
       setDisplayedUser(allUsers);
@@ -35,30 +39,45 @@ const HomeView = () => {
       setDisplayedUser(maleUsers);
     } else if (page === "female") {
       setDisplayedUser(femaleUsers);
+    } else if (page === "signUp") {
+      setShowSignUp(true);
+      console.log("set to true");
+    } else {
+      setShowSignUp(false);
+      console.log("set to false", showSignUp);
     }
     setProfileIndex(0);
+    console.log(page);
+  };
+
+  const openSignUpModal = () => {
+    handlePageChange("signUp");
   };
 
   const navLinks = [
     {
       label: "All",
       icon: <FaUsers />,
-      onMouseOver: () => handlePageChange("home"),
+      onClick: () => handlePageChange("home"),
     },
     {
       label: "Male Folks",
       icon: <FaUserTie />,
-      onMouseOver: () => handlePageChange("male"),
+      onClick: () => handlePageChange("male"),
     },
     {
       label: "Female Folks",
       icon: <SlUserFemale />,
-      onMouseOver: () => handlePageChange("female"),
+      onClick: () => handlePageChange("female"),
+    },
+    {
+      label: "Sign Up",
+      icon: <SlLogin />,
+      onClick: openSignUpModal,
     },
   ];
 
   const profile = displayedUser[profileIndex];
-  console.log(profileIndex);
 
   return (
     <div className="flex flex-col md:flex-row items-center justify-center m-auto h-full ">
@@ -72,7 +91,7 @@ const HomeView = () => {
             {navLinks.map((link, index) => (
               <a
                 href="#!"
-                onMouseOver={link.onMouseOver}
+                onClick={link.onClick}
                 key={index}
                 className="hover:text-red-900 transition-colors flex items-center gap-5"
               >
@@ -84,36 +103,66 @@ const HomeView = () => {
           </ul>
         </nav>
       </div>
-
-      <div className="flex flex-col items-center w-full h-full relative">
-        <div className="flex md:flex-row flex-nowrap gap-3 items-center justify-center fixed md:sticky lg:fixed  top-0 z-20 left-[10%] bg-white w-full left-0 right-0 md:pb-5 top-card">
-          <button onClick={previous} className="icon prev px-2">
-            <GrPrevious className="md:text-2xl text-4xl cursor-pointer" />
-          </button>
-
-          <div className="flex flex-col items-center border p-5 rounded-3xl shadow-2xl card">
-            <p className="font-bold">
-              Student ID:
-              <span className="font-normal">
-                {` 00${profileIndex + 1} of 00${displayedUser.length}`}
-              </span>
-            </p>
-            <img
-              src={profile.img}
-              alt=""
-              className="w-[250px] h-[250px] object-cover rounded-3xl"
-            />
-            <h1 className="font-bold text-xl">{profile.names}</h1>
-            <p className="font-semibold text-red-900">{profile.email}</p>
-            <p>{profile.state}</p>
+      <div
+        className={
+          showSignUp
+            ? "flex flex-col items-center w-full h-full relative border justify-center"
+            : "flex flex-col items-center w-full h-full relative border justify-center"
+        }
+      >
+        {showSignUp ? (
+          <div className="modal z-50 h-full lg:w-[80%] w-full fixed  top-[10%] -right-[10%] ">
+            <div className="modal-content h-full ">
+              <SignUp />
+            </div>
           </div>
+        ) : null}
+        <div className={showSignUp ? "blur" : ""}>
+          <div className="fixed md:sticky lg:fixed top-0 z-20 left-[10%] bg-white w-full left-0 right-0 md:pb-5 top-card">
+            <div className="flex md:flex-row flex-nowrap gap-3 items-center justify-center profile-container">
+              <button onClick={previous} className="icon prev px-2">
+                <GrPrevious className="md:text-2xl text-4xl cursor-pointer" />
+              </button>
 
-          <button onClick={next} className="icon next px-2 ">
-            <GrNext className="md:text-2xl text-4xl cursor-pointer" />
-          </button>
+              <div className="flex flex-col items-center border p-5 rounded-3xl shadow-2xl card">
+                <p className="font-bold">
+                  Student ID:
+                  <span className="font-normal">
+                    {` 00${profileIndex + 1} of 00${displayedUser.length}`}
+                  </span>
+                </p>
+                <img
+                  src={profile.img}
+                  alt=""
+                  className="w-[250px] h-[250px] object-cover rounded-3xl"
+                />
+                <h1 className="font-bold text-xl">{profile.names}</h1>
+                <p className="font-semibold text-red-900">{profile.email}</p>
+                <p>{profile.state}</p>
+              </div>
+
+              <button onClick={next} className="icon next px-2 ">
+                <GrNext className="md:text-2xl text-4xl cursor-pointer" />
+              </button>
+            </div>
+          </div>
         </div>
 
-        <div className="flex md:flex-row flex-wrap gap-x-20 gap-y-5 items-center justify-center w-full h-full absolute md:top-[400px] top-[450px]">
+        <div
+          className={
+            showSignUp
+              ? `flex md:flex-row flex-wrap gap-x-20 gap-y-5 items-center justify-center w-full h-full absolute blur-sm ${
+                  displayedUser === allUsers
+                    ? "md:top-[470px] top-[450px]"
+                    : "md:top-[300px] top-[350px]"
+                }`
+              : `flex md:flex-row flex-wrap gap-x-20 gap-y-5 items-center justify-center w-full h-full absolute ${
+                  displayedUser === allUsers
+                    ? "md:top-[470px] top-[450px]"
+                    : "md:top-[300px] top-[350px]"
+                }`
+          }
+        >
           {displayedUser.map((user) => (
             <Cards
               key={user.id}

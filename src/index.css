@@ -17,6 +17,11 @@
   font-weight: 900;
   /* font-size: 60px */
 }
+/* Add this CSS to your stylesheet */
+.profile-container {
+  transition: transform 0.3s ease-in-out; /* Adjust the duration and timing function as needed */
+}
+
 
 @media screen and (max-width:640px) {
   .icon {
