@@ -64,9 +64,11 @@ const SignUp = () => {
     }
     if (hasEmailError) {
       alert("Email is invalid." + emailError);
-    } if (formData.name || formData.email || formData.password || formData.gender || formData.terms === null){
-      alert("Fill the required fields correctly")
-    }
+    } if (formData.terms === false){
+      alert("You must agree to terms to use our website")
+    } if (formData.name === "") {
+      alert("Enter Your Name")
+    } 
   };
   // console.log(formData);
 
