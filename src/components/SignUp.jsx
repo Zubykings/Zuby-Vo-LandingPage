@@ -57,18 +57,25 @@ const SignUp = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const hasEmailError = emailError !== null;
-    const hasPasswordError = passwordError.length || passwordError.upper || passwordError.lower || passwordError.digit;
-    ;
+    const hasPasswordError =
+      passwordError.length ||
+      passwordError.upper ||
+      passwordError.lower ||
+      passwordError.digit;
     if (hasPasswordError) {
       alert("Password is Invalid.");
     }
     if (hasEmailError) {
       alert("Email is invalid." + emailError);
-    } if (formData.terms === false){
-      alert("You must agree to terms to use our website")
-    } if (formData.name === "") {
-      alert("Enter Your Name")
-    } 
+    }
+    if (formData.terms === false) {
+      alert("You must agree to terms to use our website");
+    }
+    if (formData.name === "") {
+      alert("Enter Your Name");
+    } else {
+      window.location.reload();
+    }
   };
   // console.log(formData);
 
