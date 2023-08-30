@@ -74,6 +74,7 @@ const HomeView = () => {
       label: "Sign Up",
       icon: <SlLogin />,
       onClick: openSignUpModal,
+      style:" py-1 px-1 rounded-lg bg-red-900 hover:bg-red-800 hover:text-white text-white" ,
     },
   ];
 
@@ -93,10 +94,10 @@ const HomeView = () => {
                 href="#!"
                 onClick={link.onClick}
                 key={index}
-                className="hover:text-red-900 transition-colors flex items-center gap-5"
+                className={`hover:text-red-900 transition-colors flex items-center gap-5 ${link.style}`}
               >
-                {" "}
-                <span className="text-2xl text-red-900">{link.icon}</span>
+                
+                <span className={`text-2xl ${link.style} text-red-900`}>{link.icon}</span>
                 <li className="hidden md:flex basis">{link.label}</li>
               </a>
             ))}

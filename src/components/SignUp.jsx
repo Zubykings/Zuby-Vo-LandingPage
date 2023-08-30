@@ -71,8 +71,8 @@ const SignUp = () => {
     if (formData.terms === false) {
       alert("You must agree to terms to use our website");
     }
-    if (formData.name === "") {
-      alert("Enter Your Name");
+    if (formData.name === "" || formData.email  === "" || formData.gender === "" || hasPasswordError) {
+      alert("Fill the fields correctly");
     } else {
       window.location.reload();
     }
