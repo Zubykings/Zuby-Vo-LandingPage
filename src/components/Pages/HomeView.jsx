@@ -5,8 +5,6 @@ import { FaUserTie, FaUsers } from "react-icons/fa";
 import { SlLogin, SlUserFemale } from "react-icons/sl";
 import { GrNext, GrPrevious } from "react-icons/gr";
 import SignUp from "../SignUp";
-// import Button from "../Button";
-// import { allUsers } from "../assets/allUsers";
 
 const HomeView = () => {
   const [currentPage, setCurrentPage] = useState("home");
@@ -51,7 +49,11 @@ const HomeView = () => {
   };
 
   const openSignUpModal = () => {
-    handlePageChange("signUp");
+    if (showSignUp === false) {
+      handlePageChange("signUp");
+    } else {
+      handlePageChange(showSignUp);
+    }
   };
 
   const navLinks = [
@@ -59,45 +61,53 @@ const HomeView = () => {
       label: "All",
       icon: <FaUsers />,
       onClick: () => handlePageChange("home"),
+      style2: "hover:bg-slate-600",
+
     },
     {
       label: "Male Folks",
       icon: <FaUserTie />,
       onClick: () => handlePageChange("male"),
+      style2: "hover:bg-slate-600",
+
     },
     {
       label: "Female Folks",
       icon: <SlUserFemale />,
       onClick: () => handlePageChange("female"),
+      style2: "hover:bg-slate-600",
+
     },
     {
       label: "Sign Up",
       icon: <SlLogin />,
       onClick: openSignUpModal,
-      style:" py-1 px-1 rounded-lg bg-red-900 hover:bg-red-800 hover:text-white text-white" ,
+      style:
+        " py-1 px-1 rounded-lg bg-green-500 font-bold hover:bg-green-400 group hover:text-white text-white",
     },
   ];
 
   const profile = displayedUser[profileIndex];
 
   return (
-    <div className="flex flex-col md:flex-row items-center justify-center m-auto h-full ">
-      <div className="md:w-[20%] h-full bg-[#ad9f9e] fixed top-0 left-0 px-5 z-50 ">
-        <div className="text-red-900 border-b-2 text-center border-gray-500/30 w-[90%] m-auto">
-          <h2 className="vo mt-4  text-4xl  md:text-7xl">VO</h2>
+    <div className="flex flex-col md:flex-row items-center justify-center m-auto h-full bg-[#EAE9E5] ">
+      <div className="md:w-[20%] h-full bg-slate-700 fixed top-0 left-0 px-5 z-50 ">
+        <div className="text-white border-b-2 text-center border-gray-200/100 w-[90%] m-auto">
+          <h2 className="vo mt-4  text-4xl  md:text-7xl">ZK</h2>
         </div>
 
         <nav className="w-full flex items-center justify-center">
-          <ul className="flex flex-col pt-10 gap-5 text-gray-800 font-[500]">
+          <ul className="flex flex-col pt-10 gap-5 text-white font-[500] ">
             {navLinks.map((link, index) => (
               <a
-                href="#!"
+                href="#"
                 onClick={link.onClick}
                 key={index}
-                className={`hover:text-red-900 transition-colors flex items-center gap-5 ${link.style}`}
+                className={` py-1.5 px-2 rounded-lg transition-colors flex items-center gap-5 ${link.style2} ${link.style}`}
               >
-                
-                <span className={`text-2xl ${link.style} text-red-900`}>{link.icon}</span>
+                <span className={`text-2xl  text-white`}>
+                  {link.icon}
+                </span>
                 <li className="hidden md:flex basis">{link.label}</li>
               </a>
             ))}
@@ -107,19 +117,19 @@ const HomeView = () => {
       <div
         className={
           showSignUp
-            ? "flex flex-col items-center w-full h-full relative border justify-center"
-            : "flex flex-col items-center w-full h-full relative border justify-center"
+            ? "flex flex-col items-center border border-black justify-center w-full h-full justify-center"
+            : "flex flex-col items-center w-full h-full relative justify-center"
         }
       >
         {showSignUp ? (
-          <div className="modal z-50 h-full lg:w-[80%] w-full fixed  top-[10%] -right-[10%] ">
-            <div className="modal-content h-full ">
+          <div className="modal z-50 w-full flex flex-col  h-full items-center justify-center m-auto  ">
+            <div className="modal-content w-full md:w-4/6 h-full m-auto ">
               <SignUp />
             </div>
           </div>
         ) : null}
-        <div className={showSignUp ? "blur" : ""}>
-          <div className="fixed md:sticky lg:fixed top-0 z-20 left-[10%] bg-white w-full left-0 right-0 md:pb-5 top-card">
+        <div className={showSignUp ? "hidden" : ""}>
+          <div className="fixed top-0 z-20 left-[10%] w-full left-0 right-0 md:pb-5 bg-[#EAE9E5]  top-card">
             <div className="flex md:flex-row flex-nowrap gap-3 items-center justify-center profile-container">
               <button onClick={previous} className="icon prev px-2">
                 <GrPrevious className="md:text-2xl text-4xl cursor-pointer" />
@@ -138,7 +148,7 @@ const HomeView = () => {
                   className="w-[250px] h-[250px] object-cover rounded-3xl"
                 />
                 <h1 className="font-bold text-xl">{profile.names}</h1>
-                <p className="font-semibold text-red-900">{profile.email}</p>
+                <p className="font-semibold text-green-900">{profile.email}</p>
                 <p>{profile.state}</p>
               </div>
 
@@ -152,11 +162,7 @@ const HomeView = () => {
         <div
           className={
             showSignUp
-              ? `flex md:flex-row flex-wrap gap-x-20 gap-y-5 items-center justify-center w-full h-full absolute blur-sm ${
-                  displayedUser === allUsers
-                    ? "md:top-[470px] top-[450px]"
-                    : "md:top-[300px] top-[350px]"
-                }`
+              ? `flex md:flex-row flex-wrap gap-x-20 gap-y-5 items-center justify-center w-full h-full absolute blur-sm`
               : `flex md:flex-row flex-wrap gap-x-20 gap-y-5 items-center justify-center w-full h-full absolute ${
                   displayedUser === allUsers
                     ? "md:top-[470px] top-[450px]"

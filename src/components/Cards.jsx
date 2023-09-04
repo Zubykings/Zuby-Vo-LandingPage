@@ -13,7 +13,7 @@ const Cards = (props) => {
         />
         <div className="flex flex-col items-center gap-1">
           <h2 className="font-bold text-2xl">{names}</h2>
-          <h5 className="font-bold text-md text-red-900">{email}</h5>
+          <h5 className="font-bold text-md text-green-900">{email}</h5>
           <p>{state}</p>
           <Button />
         </div>

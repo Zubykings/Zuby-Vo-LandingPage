@@ -80,12 +80,12 @@ const SignUp = () => {
   // console.log(formData);
 
   return (
-    <div className="shadow-2xl shadow-red-900/60 md:w-9/12 h-5/6 w-11/12 flex flex-row rounded-3xl overflow-hidden">
-      <div className=" w-8/12 md:w-7/12  h-full flex flex-col items-center justify-center bg-[#ebe9e9] space-y-4">
-        <h3 className="md:text-2xl text-xl font-bold text-gray-700">
+    <div className="shadow-2xl shadow-green-900/60 md:h-4/6 h-5/6 lg:w-6/12 md:w-7/12 w-9/12 flex flex-row items-center justify-center rounded-3xl overflow-y-auto fixed ">
+      <div className=" w-8/12 h-full item-center justify-center flex-col flex bg-[#ebe9e9]">
+        <form onSubmit={handleSubmit} className="md:space-y-6 space-y-3 mx-2">
+        <h3 className="md:text-2xl text-center text-md font-bold text-gray-700">
           Hello, Friend!
         </h3>
-        <form onSubmit={handleSubmit} className="space-y-6 mx-2">
           <div className="space-y-1">
             <input
               type="text"
@@ -94,7 +94,7 @@ const SignUp = () => {
               name="name"
               value={formData.name}
               placeholder="Enter your name"
-              className="w-full block shadow-lg placeholder-gray-500 px-3 py-1 leading-6 rounded-3xl border-gray-200 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50 focus:outline-none dark:border-gray-600 dark:focus:border-blue-500 dark:placeholder-gray-400"
+              className="w-full block shadow-lg  placeholder-gray-500 px-3 py-1 text-sm md:text-md lg:text-lg leading-6 rounded-3xl border-gray-200 focus:border-green-500 focus:ring focus:ring-green-500 focus:ring-opacity-50 focus:outline-none dark:border-gray-600 dark:focus:border-green-500 dark:placeholder-gray-400"
             />
           </div>
 
@@ -106,10 +106,10 @@ const SignUp = () => {
               name="email"
               value={formData.email}
               placeholder="Enter your email"
-              className={`w-full block shadow-lg placeholder-gray-500 px-3 py-1 leading-6 rounded-3xl border-gray-200 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50 focus:outline-none dark:border-gray-600 dark:focus:border-blue-500 dark:placeholder-gray-400
+              className={`w-full block shadow-lg placeholder-gray-500 px-3 py-1 text-sm md:text-md lg:text-lg leading-6 rounded-3xl border-gray-200 focus:border-green-500 focus:ring focus:ring-green-500 focus:ring-opacity-50 focus:outline-none dark:border-gray-600 dark:focus:border-green-500 dark:placeholder-gray-400
               `}
             />
-            <p className="text-xs text-red-500"> {emailError} </p>
+            <p className="text-xs text-green-500"> {emailError} </p>
           </div>
           <div className="space-y-1">
             <label htmlFor="password" className="text-sm font-medium">
@@ -120,7 +120,7 @@ const SignUp = () => {
                 name="password"
                 value={formData.password}
                 placeholder="Enter your password"
-                className={`w-full block shadow-lg placeholder-gray-500 px-3 py-1 leading-6 rounded-3xl  border-gray-200 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50 focus:outline-none  dark:border-gray-600 dark:focus:border-blue-500 dark:placeholder-gray-400  ${
+                className={`w-full block shadow-lg placeholder-gray-500 text-sm md:text-md lg:text-lg px-3 py-1 text-sm md:text-md lg:text-lg leading-6 rounded-3xl  border-gray-200 focus:border-green-500 focus:ring focus:ring-green-500 focus:ring-opacity-50 focus:outline-none  dark:border-gray-600 dark:focus:border-green-500 dark:placeholder-gray-400  ${
                   !passwordError.digit &&
                   !passwordError.length &&
                   !passwordError.upper &&
@@ -146,7 +146,7 @@ const SignUp = () => {
                   formData.password.length >= 6
                     ? "text-green-500"
                     : "text-red-500"
-                } text-xs ms-1`}
+                } md:text-xs text-[10px]  ms-1`}
               >
                 Password must be 6 characters long{" "}
               </span>
@@ -165,7 +165,7 @@ const SignUp = () => {
               <span
                 className={`${
                   !passwordError.digit ? "text-green-500" : "text-red-500"
-                } text-xs ms-1`}
+                } md:text-xs text-[10px] ms-1`}
               >
                 Must contain number{" "}
               </span>
@@ -183,14 +183,14 @@ const SignUp = () => {
               <span
                 className={`${
                   !passwordError.upper ? "text-green-500" : "text-red-500"
-                } text-xs ms-1`}
+                } md:text-xs text-[10px] ms-1`}
               >
                 UpperCase{" "}
               </span>
               <span
                 className={`${
                   !passwordError.lower ? "text-green-500" : "text-red-500"
-                } text-xs ms-1`}
+                } md:text-xs text-[10px] ms-1`}
               >
                 and LowerCase{" "}
               </span>
@@ -198,7 +198,7 @@ const SignUp = () => {
           </div>
 
           <div className="space-y-1 ">
-            <legend className="font-semibold text-gray-700">Gender</legend>
+            <legend className="font-semibold text-start text-sm md:text-md text-gray-700">Gender</legend>
             <div className="flex gap-5 items-center justify-start">
               <label htmlFor="male">
                 <input
@@ -208,9 +208,9 @@ const SignUp = () => {
                   name="gender"
                   value="male"
                   checked={formData.gender === "male"}
-                  className="block space placeholder-gray-500 px-3 py-1 leading-6 rounded-lg  focus:outline-none "
+                  className="block space placeholder-gray-500 px-3 py-1 text-sm md:text-md lg:text-lg leading-6 rounded-lg  focus:outline-none "
                 />
-                <span className="text-sm">Male</span>
+                <span className="md:text-sm text-xs">Male</span>
               </label>
               <label htmlFor="female">
                 <input
@@ -220,9 +220,9 @@ const SignUp = () => {
                   name="gender"
                   value="female"
                   checked={formData.gender === "female"}
-                  className="block border placeholder-gray-500 px-3 py-1 leading-6 rounded-lg border-gray-200 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50 focus:outline-none dark:border-gray-600 dark:focus:border-blue-500 dark:placeholder-gray-400"
+                  className="block border placeholder-gray-500 px-3 py-1 text-sm md:text-md lg:text-lg leading-6 rounded-lg border-gray-200 focus:border-green-500 focus:ring focus:ring-green-500 focus:ring-opacity-50 focus:outline-none dark:border-gray-600 dark:focus:border-green-500 dark:placeholder-gray-400"
                 />
-                <span className="text-sm">Female</span>
+                <span className="md:text-sm text-xs">Female</span>
               </label>
               <label htmlFor="female">
                 <input
@@ -232,9 +232,9 @@ const SignUp = () => {
                   name="gender"
                   value="robot"
                   checked={formData.gender === "robot"}
-                  className="block border placeholder-gray-500 px-3 py-1 leading-6 rounded-lg border-gray-200 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50 focus:outline-none dark:border-gray-600 dark:focus:border-blue-500 dark:placeholder-gray-400"
+                  className="block border placeholder-gray-500 px-3 py-1 text-sm md:text-md lg:text-lg leading-6 rounded-lg border-gray-200 focus:border-green-500 focus:ring focus:ring-green-500 focus:ring-opacity-50 focus:outline-none dark:border-gray-600 dark:focus:border-green-500 dark:placeholder-gray-400"
                 />
-                <span className="text-sm">Robot</span>
+                <span className="md:text-sm text-xs">Robot</span>
               </label>
             </div>
           </div>
@@ -248,67 +248,29 @@ const SignUp = () => {
                   name="terms"
                   value="terms"
                   checked={formData.terms}
-                  className="border border-gray-200 rounded h-4 w-4 text-blue-500 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50 dark:bg-gray-800 dark:border-gray-600 dark:ring-offset-gray-900 dark:focus:border-blue-500 dark:checked:bg-blue-500 dark:checked:border-transparent"
+                  className="border border-gray-200 rounded h-4 w-4 text-green-500 focus:border-green-500 focus:ring focus:ring-green-500 focus:ring-opacity-50 dark:bg-gray-800 dark:border-gray-600 dark:ring-offset-gray-900 dark:focus:border-green-500 dark:checked:bg-green-500 dark:checked:border-transparent"
                 />
-                <span className="text-sm ml-2">
+                <span className="md:text-sm text-xs ml-2">
                   I've read and agree to{" "}
-                  <span className="text-red-900">Terms and Conditions</span>
+                  <span className="text-green-900">Terms and Conditions</span>
                 </span>
               </label>
             </div>
             <button
               type="submit"
               onSubmit={handleSubmit}
-              className="md:w-3/6 w-4/6 inline-flex justify-center items-center space-x-2 border font-semibold rounded-full px-4 py-1 leading-6 border-red-700 bg-red-700 text-white hover:text-white hover:bg-red-600 hover:border-red-600 focus:ring focus:ring-red-400 focus:ring-opacity-50 active:bg-red-700 active:border-red-700 dark:focus:ring-red-400 dark:focus:ring-opacity-90 shadow-lg"
+              className="md:w-3/6 w-4/6 inline-flex justify-center items-center space-x-2 border font-semibold rounded-full px-4 py-1 text-xs md:text-md lg:text-lg leading-6 border-slate-700 bg-slate-700 text-white hover:text-white hover:bg-slate-600 hover:border-slate-600 focus:ring focus:ring-slate-400 focus:ring-opacity-50 active:bg-slate-700 active:border-slate-700 dark:focus:ring-slate-400 dark:focus:ring-opacity-90 shadow-lg mb-2"
             >
               Sign Up
             </button>
           </div>
-        </form>
-        {/* <form className="w-5/6 h-auto flex flex-col">
-          <h3 className="text-2xl font-bold">Hello, Friend!</h3>
-
-          <label htmlFor="">
-            <input type="text" />
-          </label>
-
-          <label htmlFor="">
-            <input type="email" />
-          </label>
-
-          <label htmlFor="">
-            <input type="password" />
-          </label>
-
-          <div>
-            <div>
-              <legend>Gender</legend>
-              <label htmlFor="">
-                <input type="radio" />
-                <span className="ms-2"> Male</span>
-              </label>
-              <label htmlFor="">
-                <input type="radio" />
-                <span className="ms-2"> Female</span>
-              </label>
-            </div>
-            <label htmlFor="">
-              <input type="checkbox" />
-              <span>
-                I've read and agree to{" "}
-                <span className="text-red-900">Terms and Conditions</span>{" "}
-              </span>
-            </label>
-          </div>
-
-          <button className="border border-red-900 w-3/6">Sign Up</button>
-        </form> */}
+        </form>       
       </div>
 
-      <div className=" md:w-6/12 w-4/12  h-full bg-gradient-to-t from-red-800 to-red-400 text-center flex flex-col items-center justify-center text-white">
+      <div className=" w-4/12 h-full flex-grow  bg-gradient-to-t from-slate-800 to-slate-400 text-center flex flex-col items-center justify-center text-white">
         <div className="w-9/12 gap-5 flex flex-col ">
-          <h1 className="font-bold md:text-3xl text-xl ">Good to see You!</h1>
-          <p className="md:text-sm text-xs ">
+          <h1 className="font-bold md:text-2xl text-xl ">Good to see You!</h1>
+          <p className="md:text-sm text-[11px] ">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur,
             modi.
           </p>
