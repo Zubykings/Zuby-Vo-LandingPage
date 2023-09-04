@@ -15,7 +15,7 @@ const SignUp = () => {
     lower: true,
     digit: true,
   });
-  const [passErrorMessage, setPassErrorMessage] = useState("")
+  const [passErrorMessage, setPassErrorMessage] = useState("");
 
   const [emailError, setEmailError] = useState(null);
   const [isEmailValid, setIsEmailValid] = useState(false);
@@ -32,7 +32,7 @@ const SignUp = () => {
       const hasUpperCase = /[A-Z]/.test(value);
       const hasLowerCase = /[a-z]/.test(value);
       const hasDigit = /[0-9]/.test(value);
-      const isLengthValid = value.length >= 6;      
+      const isLengthValid = value.length >= 6;
       setPasswordError({
         length: !isLengthValid,
         upper: !hasUpperCase,
@@ -47,10 +47,11 @@ const SignUp = () => {
         upper: hasUpperCase,
         lower: hasLowerCase,
       }));
-    } if (name === "email") {
-      const inputValue = event.target.value
+    }
+    if (name === "email") {
+      const inputValue = event.target.value;
       const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-      setIsEmailValid(emailRegex.test(inputValue))
+      setIsEmailValid(emailRegex.test(inputValue));
       // setEmailError(inputValue)
     }
   };
@@ -58,38 +59,38 @@ const SignUp = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const hasEmailError = !isEmailValid
+    const hasEmailError = !isEmailValid;
     const hasPasswordError =
       passwordError.length ||
       passwordError.upper ||
       passwordError.lower ||
       passwordError.digit;
     if (hasPasswordError) {
-      setPassErrorMessage("Invalid Email")
+      setPassErrorMessage("Invalid Email");
     } else {
-      setPassErrorMessage(!passErrorMessage)
-    };
-
-    if (formData.terms === false) {
-      alert("You must agree to terms to use our website");
+      setPassErrorMessage(!passErrorMessage);
     }
-    
+
+    // if (formData.terms === false) {
+    //   alert("You must agree to terms to use our website");
+    // }
+
     if (hasEmailError) {
-      setEmailError("Invalid Email format")
+      setEmailError("Invalid Email format");
     } else {
-      setEmailError(!isEmailValid)
+      setEmailError(!isEmailValid);
     }
 
     if (
       formData.name === "" ||
       formData.email === "" ||
       formData.gender === "" ||
+      formData.terms === false ||
       hasPasswordError ||
       hasEmailError
     ) {
-      null
-    }
-    else {
+      null;
+    } else {
       window.location.reload();
     }
   };
@@ -110,7 +111,7 @@ const SignUp = () => {
               name="name"
               value={formData.name}
               placeholder="Enter your name"
-              className="w-5/6 block shadow-lg  placeholder-gray-500 px-3 py-1 text-sm md:text-md lg:text-lg leading-6 rounded-3xl border-gray-200 focus:border-green-500 focus:ring focus:ring-green-500 focus:ring-opacity-50 focus:outline-none dark:border-gray-600 dark:focus:border-green-500 dark:placeholder-gray-400"
+              className="md:w-5/6 w-full block shadow-lg  placeholder-gray-500 px-3 py-1 text-sm md:text-md lg:text-lg leading-6 rounded-3xl border-gray-200 focus:border-green-500 focus:ring focus:ring-green-500 focus:ring-opacity-50 focus:outline-none dark:border-gray-600 dark:focus:border-green-500 dark:placeholder-gray-400"
             />
           </div>
 
@@ -122,7 +123,11 @@ const SignUp = () => {
               name="email"
               value={formData.email}
               placeholder="Enter your email"
-              className={`w-5/6 block shadow-lg placeholder-gray-500 px-3 py-1 text-sm md:text-md lg:text-lg leading-6 rounded-3xl dark:border-gray-600 border-gray-200  dark:placeholder-gray-400 ${!isEmailValid ? "focus:border-red-500 focus:ring focus:ring-red-500 focus:ring-opacity-50 focus:outline-none  dark:focus:border-red-500" : "focus:border-green-500 focus:ring focus:ring-green-500 focus:ring-opacity-50 focus:outline-none  dark:focus:border-green-500"}
+              className={`md:w-5/6 w-full block shadow-lg placeholder-gray-500 px-3 py-1 text-sm md:text-md lg:text-lg leading-6 rounded-3xl dark:border-gray-600 border-gray-200  dark:placeholder-gray-400 ${
+                !isEmailValid
+                  ? "focus:border-red-500 focus:ring focus:ring-red-500 focus:ring-opacity-50 focus:outline-none  dark:focus:border-red-500"
+                  : "focus:border-green-500 focus:ring focus:ring-green-500 focus:ring-opacity-50 focus:outline-none  dark:focus:border-green-500"
+              }
               `}
             />
             <p className="text-xs text-red-900"> {emailError} </p>
@@ -136,7 +141,7 @@ const SignUp = () => {
                 name="password"
                 value={formData.password}
                 placeholder="Enter your password"
-                className={`w-5/6 block shadow-lg placeholder-gray-500 text-sm md:text-md lg:text-lg px-3 py-1 text-sm md:text-md lg:text-lg leading-6 rounded-3xl  border-gray-200 focus:border-green-500 focus:ring focus:ring-green-500 focus:ring-opacity-50 focus:outline-none  dark:border-gray-600 dark:focus:border-green-500 dark:placeholder-gray-400  ${
+                className={`md:w-5/6 w-full block shadow-lg placeholder-gray-500 text-sm md:text-md lg:text-lg px-3 py-1 text-sm md:text-md lg:text-lg leading-6 rounded-3xl  border-gray-200 focus:border-green-500 focus:ring focus:ring-green-500 focus:ring-opacity-50 focus:outline-none  dark:border-gray-600 dark:focus:border-green-500 dark:placeholder-gray-400  ${
                   !passwordError.digit &&
                   !passwordError.length &&
                   !passwordError.upper &&
@@ -146,9 +151,7 @@ const SignUp = () => {
                 } `}
               />
             </label>
-            <p className="text-red-900 text-xs ">
-              {passErrorMessage}
-            </p>
+            <p className="text-red-900 text-xs ">{passErrorMessage}</p>
 
             {/* <label className="flex items-center">
               <input
