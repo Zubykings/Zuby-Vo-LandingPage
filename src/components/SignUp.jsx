@@ -15,8 +15,10 @@ const SignUp = () => {
     lower: true,
     digit: true,
   });
+  const [passErrorMessage, setPassErrorMessage] = useState("")
 
   const [emailError, setEmailError] = useState(null);
+  const [isEmailValid, setIsEmailValid] = useState(false);
 
   const handleForm = (event) => {
     const { name, type, value } = event.target;
@@ -30,19 +32,14 @@ const SignUp = () => {
       const hasUpperCase = /[A-Z]/.test(value);
       const hasLowerCase = /[a-z]/.test(value);
       const hasDigit = /[0-9]/.test(value);
-      const isLengthValid = value.length >= 6;
+      const isLengthValid = value.length >= 6;      
       setPasswordError({
         length: !isLengthValid,
         upper: !hasUpperCase,
         lower: !hasLowerCase,
         digit: !hasDigit,
       });
-      if (name === "email") {
-        const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-        const isEmailValid = emailRegex.test(value);
-        setEmailError(!isEmailValid ? null : "Invalid email format");
-        console.log(emailRegex);
-      }
+
       setFormData((prevFormData) => ({
         ...prevFormData,
         digit: hasDigit,
@@ -50,42 +47,61 @@ const SignUp = () => {
         upper: hasUpperCase,
         lower: hasLowerCase,
       }));
+    } if (name === "email") {
+      const inputValue = event.target.value
+      const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+      setIsEmailValid(emailRegex.test(inputValue))
+      // setEmailError(inputValue)
     }
   };
   // console.log(emailError);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const hasEmailError = emailError !== null;
+    const hasEmailError = !isEmailValid
     const hasPasswordError =
       passwordError.length ||
       passwordError.upper ||
       passwordError.lower ||
       passwordError.digit;
     if (hasPasswordError) {
-      alert("Password is Invalid.");
-    }
-    if (hasEmailError) {
-      alert("Email is invalid." + emailError);
-    }
+      setPassErrorMessage("Invalid Email")
+    } else {
+      setPassErrorMessage(!passErrorMessage)
+    };
+
     if (formData.terms === false) {
       alert("You must agree to terms to use our website");
     }
-    if (formData.name === "" || formData.email  === "" || formData.gender === "" || hasPasswordError) {
-      alert("Fill the fields correctly");
+    
+    if (hasEmailError) {
+      setEmailError("Invalid Email format")
     } else {
+      setEmailError(!isEmailValid)
+    }
+
+    if (
+      formData.name === "" ||
+      formData.email === "" ||
+      formData.gender === "" ||
+      hasPasswordError ||
+      hasEmailError
+    ) {
+      null
+    }
+    else {
       window.location.reload();
     }
   };
   // console.log(formData);
 
   return (
-    <div className="shadow-2xl shadow-green-900/60 md:h-4/6 h-5/6 lg:w-6/12 md:w-7/12 w-9/12 flex flex-row items-center justify-center rounded-3xl overflow-y-auto fixed ">
+    <div className="shadow-2xl h-full shadow-green-900/60 md:h-5/6 lg:w-6/12 md:w-7/12 w-9/12 flex flex-row items-center justify-center rounded-3xl overflow-y-auto fixed ">
       <div className=" w-8/12 h-full item-center justify-center flex-col flex bg-[#ebe9e9]">
-        <form onSubmit={handleSubmit} className="md:space-y-6 space-y-3 mx-2">
-        <h3 className="md:text-2xl text-center text-md font-bold text-gray-700">
-          Hello, Friend!
-        </h3>
+        <form onSubmit={handleSubmit} className="md:space-y-6 space-y-3 ms-10">
+          <h3 className="md:text-2xl text-center text-md font-bold text-gray-700">
+            Hello, Friend!
+          </h3>
           <div className="space-y-1">
             <input
               type="text"
@@ -94,7 +110,7 @@ const SignUp = () => {
               name="name"
               value={formData.name}
               placeholder="Enter your name"
-              className="w-full block shadow-lg  placeholder-gray-500 px-3 py-1 text-sm md:text-md lg:text-lg leading-6 rounded-3xl border-gray-200 focus:border-green-500 focus:ring focus:ring-green-500 focus:ring-opacity-50 focus:outline-none dark:border-gray-600 dark:focus:border-green-500 dark:placeholder-gray-400"
+              className="w-5/6 block shadow-lg  placeholder-gray-500 px-3 py-1 text-sm md:text-md lg:text-lg leading-6 rounded-3xl border-gray-200 focus:border-green-500 focus:ring focus:ring-green-500 focus:ring-opacity-50 focus:outline-none dark:border-gray-600 dark:focus:border-green-500 dark:placeholder-gray-400"
             />
           </div>
 
@@ -106,10 +122,10 @@ const SignUp = () => {
               name="email"
               value={formData.email}
               placeholder="Enter your email"
-              className={`w-full block shadow-lg placeholder-gray-500 px-3 py-1 text-sm md:text-md lg:text-lg leading-6 rounded-3xl border-gray-200 focus:border-green-500 focus:ring focus:ring-green-500 focus:ring-opacity-50 focus:outline-none dark:border-gray-600 dark:focus:border-green-500 dark:placeholder-gray-400
+              className={`w-5/6 block shadow-lg placeholder-gray-500 px-3 py-1 text-sm md:text-md lg:text-lg leading-6 rounded-3xl dark:border-gray-600 border-gray-200  dark:placeholder-gray-400 ${!isEmailValid ? "focus:border-red-500 focus:ring focus:ring-red-500 focus:ring-opacity-50 focus:outline-none  dark:focus:border-red-500" : "focus:border-green-500 focus:ring focus:ring-green-500 focus:ring-opacity-50 focus:outline-none  dark:focus:border-green-500"}
               `}
             />
-            <p className="text-xs text-green-500"> {emailError} </p>
+            <p className="text-xs text-red-900"> {emailError} </p>
           </div>
           <div className="space-y-1">
             <label htmlFor="password" className="text-sm font-medium">
@@ -120,7 +136,7 @@ const SignUp = () => {
                 name="password"
                 value={formData.password}
                 placeholder="Enter your password"
-                className={`w-full block shadow-lg placeholder-gray-500 text-sm md:text-md lg:text-lg px-3 py-1 text-sm md:text-md lg:text-lg leading-6 rounded-3xl  border-gray-200 focus:border-green-500 focus:ring focus:ring-green-500 focus:ring-opacity-50 focus:outline-none  dark:border-gray-600 dark:focus:border-green-500 dark:placeholder-gray-400  ${
+                className={`w-5/6 block shadow-lg placeholder-gray-500 text-sm md:text-md lg:text-lg px-3 py-1 text-sm md:text-md lg:text-lg leading-6 rounded-3xl  border-gray-200 focus:border-green-500 focus:ring focus:ring-green-500 focus:ring-opacity-50 focus:outline-none  dark:border-gray-600 dark:focus:border-green-500 dark:placeholder-gray-400  ${
                   !passwordError.digit &&
                   !passwordError.length &&
                   !passwordError.upper &&
@@ -130,8 +146,11 @@ const SignUp = () => {
                 } `}
               />
             </label>
+            <p className="text-red-900 text-xs ">
+              {passErrorMessage}
+            </p>
 
-            <label className="flex items-center">
+            {/* <label className="flex items-center">
               <input
                 type="checkbox"
                 id="length"
@@ -194,11 +213,13 @@ const SignUp = () => {
               >
                 and LowerCase{" "}
               </span>
-            </label>
+            </label> */}
           </div>
 
           <div className="space-y-1 ">
-            <legend className="font-semibold text-start text-sm md:text-md text-gray-700">Gender</legend>
+            <legend className="font-semibold text-start text-sm md:text-md text-gray-700">
+              Gender
+            </legend>
             <div className="flex gap-5 items-center justify-start">
               <label htmlFor="male">
                 <input
@@ -238,7 +259,7 @@ const SignUp = () => {
               </label>
             </div>
           </div>
-          <div className="w-full flex flex-col items-center">
+          <div className="w-full flex flex-col">
             <div className="flex items-center justify-between space-x-2 mb-5">
               <label className="flex items-center">
                 <input
@@ -248,7 +269,7 @@ const SignUp = () => {
                   name="terms"
                   value="terms"
                   checked={formData.terms}
-                  className="border border-gray-200 rounded h-4 w-4 text-green-500 focus:border-green-500 focus:ring focus:ring-green-500 focus:ring-opacity-50 dark:bg-gray-800 dark:border-gray-600 dark:ring-offset-gray-900 dark:focus:border-green-500 dark:checked:bg-green-500 dark:checked:border-transparent"
+                  className="border border-gray-200  rounded h-4 w-4 text-green-500 focus:border-green-500 focus:ring focus:ring-green-500 focus:ring-opacity-50 dark:bg-gray-800 dark:border-gray-600 dark:ring-offset-gray-900 dark:focus:border-green-500 dark:checked:bg-green-500 dark:checked:border-transparent"
                 />
                 <span className="md:text-sm text-xs ml-2">
                   I've read and agree to{" "}
@@ -256,6 +277,8 @@ const SignUp = () => {
                 </span>
               </label>
             </div>
+          </div>
+          <div className="flex justify-center">
             <button
               type="submit"
               onSubmit={handleSubmit}
@@ -264,7 +287,7 @@ const SignUp = () => {
               Sign Up
             </button>
           </div>
-        </form>       
+        </form>
       </div>
 
       <div className=" w-4/12 h-full flex-grow  bg-gradient-to-t from-slate-800 to-slate-400 text-center flex flex-col items-center justify-center text-white">

@@ -83,7 +83,7 @@ const HomeView = () => {
       icon: <SlLogin />,
       onClick: openSignUpModal,
       style:
-        " py-1 px-1 rounded-lg bg-green-500 font-bold hover:bg-green-400 group hover:text-white text-white",
+        " py-1 px-1 rounded-lg bg-green-600 font-bold hover:bg-green-500 group hover:text-white text-white",
     },
   ];
 
@@ -123,7 +123,7 @@ const HomeView = () => {
       >
         {showSignUp ? (
           <div className="modal z-50 w-full flex flex-col  h-full items-center justify-center m-auto  ">
-            <div className="modal-content w-full md:w-4/6 h-full m-auto ">
+            <div className="modal-content w-full md:w-4/6 flex items-center h-full  ">
               <SignUp />
             </div>
           </div>
@@ -162,8 +162,8 @@ const HomeView = () => {
         <div
           className={
             showSignUp
-              ? `flex md:flex-row flex-wrap gap-x-20 gap-y-5 items-center justify-center w-full h-full absolute blur-sm`
-              : `flex md:flex-row flex-wrap gap-x-20 gap-y-5 items-center justify-center w-full h-full absolute ${
+              ? `flex md:flex-row flex-wrap gap-x-20 gap-y-5 items-center justify-center w-full h-full absolute blur-sm bg-[#EAE9E5]`
+              : `flex md:flex-row flex-wrap gap-x-20 gap-y-5 items-center justify-center w-full h-full absolute bg-[#EAE9E5] ${
                   displayedUser === allUsers
                     ? "md:top-[470px] top-[450px]"
                     : "md:top-[300px] top-[350px]"
