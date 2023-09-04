@@ -117,7 +117,7 @@ const HomeView = () => {
       <div
         className={
           showSignUp
-            ? "flex flex-col items-center border border-black justify-center w-full h-full justify-center"
+            ? "flex flex-col items-center justify-center w-full h-full justify-center"
             : "flex flex-col items-center w-full h-full relative justify-center"
         }
       >
