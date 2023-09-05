@@ -66,7 +66,7 @@ const SignUp = () => {
       passwordError.lower ||
       passwordError.digit;
     if (hasPasswordError) {
-      setPassErrorMessage("Invalid Email");
+      setPassErrorMessage("Invalid Password");
     } else {
       setPassErrorMessage(!passErrorMessage);
     }
